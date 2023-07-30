@@ -27,15 +27,32 @@ class Stack {
       this.size += 1;
       return undefined;
     }
-    this.first.next = this.first;
+    let oldFirstNode = this.first;
     this.first = newNode;
+    this.first.next = oldFirstNode;
+    this.size += 1;
     return undefined;
   }
 
   /** pop(): remove the node from the top of the stack
    * and return its value. Should throw an error if the stack is empty. */
 
-  pop() {}
+  pop() {
+    if (this.size === 0) {
+      throw new Error("Empty Stack");
+    }
+
+    let nodeToRemove = this.first;
+    if (this.size === 1) {
+      this.first = null;
+      this.last = null;
+      this.size -= 1;
+      return nodeToRemove.val;
+    }
+    this.first = this.first.next;
+    this.size -= 1;
+    return nodeToRemove.val;
+  }
 
   /** peek(): return the value of the first node in the stack. */
 
